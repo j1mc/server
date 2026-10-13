@@ -119,9 +119,8 @@ def test_image_assembly_declares_sed_build_depend():
     """bluefin-server-image.bst must build-depend on FSDK's sed component.
 
     Regression test for projectbluefin/server#456: the diskless-install
-    CopyBlocks rewrite (PR #447) calls sed in the sandbox, but the element
-    only reached sed transitively, so the FSDK 26.08.0 -> 26.08.2 junction
-    bump dropped it from the sandbox and the nightly build failed with
+    CopyBlocks rewrite (PR #447) added the element's first sed call, but
+    never declared the dependency, so every main build since failed with
     "sed: command not found". Sibling elements (boot, usr) already declare
     this exact path; keep it explicit here too.
     """
